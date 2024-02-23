@@ -1,6 +1,7 @@
 import allure
 from base.base_test import BaseTest
 
+
 @allure.feature("Choose route test")
 class TestRoute(BaseTest):
 

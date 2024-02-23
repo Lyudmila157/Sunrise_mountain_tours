@@ -10,6 +10,9 @@ on:
         type: choice
         options:
           - test_route
+          - test_route_dagestan
+          - test_route_baikal
+          - test_find_by_select
 
 jobs:
   test:
@@ -29,5 +32,15 @@ jobs:
       - name: test_route
         if: "github.event.inputs.deployment_target == 'test_route'"
         run: pytest tests/test_route.py::TestRoute::test_choose_route
+      - name: test_route_dagestan
+        if: "github.event.inputs.deployment_target == 'test_route_dagestan'"
+        run: pytest tests/test_route_dagestan.py::TestRoute::test_choose_dagestan_route
+      - name: test_route_baikal
+        if: "github.event.inputs.deployment_target == 'test_route_dagestan'"
+        run: pytest tests/test_route_baikal.py::TestRoute::test_choose_baikal_route
+      - name: test_find_by_select
+        if: "github.event.inputs.deployment_target == 'test_route_dagestan'"
+        run: pytest tests/test_find_by_select.py::TestRoute::test_find_by_select
+
 
 
