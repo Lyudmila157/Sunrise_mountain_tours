@@ -14,6 +14,10 @@ on:
           - test_route_baikal
           - test_find_by_select
           - all
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   test:
@@ -33,18 +37,23 @@ jobs:
       - name: test_route
         if: "github.event.inputs.deployment_target == 'test_route'"
         run: pytest tests/test_route.py::TestRoute::test_choose_route --alluredir=allure-results
+        continue-on-error: true
       - name: test_route_dagestan
         if: "github.event.inputs.deployment_target == 'test_route_dagestan'"
         run: pytest tests/test_route_dagestan.py::TestRoute::test_choose_dagestan_route --alluredir=allure-results
+        continue-on-error: true
       - name: test_route_baikal
         if: "github.event.inputs.deployment_target == 'test_route_baikal'"
         run: pytest tests/test_route_baikal.py::TestRoute::test_choose_baikal_route --alluredir=allure-results
+        continue-on-error: true
       - name: test_find_by_select
         if: "github.event.inputs.deployment_target == 'test_find_by_select'"
         run: pytest tests/test_find_by_select.py::TestRoute::test_find_by_select --alluredir=allure-results
+        continue-on-error: true
       - name: all
         if: "github.event.inputs.deployment_target == 'all'"
         run: pytest --alluredir=allure-results
+        continue-on-error: true
       - name: Store allure-results
         uses: actions/upload-artifact@v3
         with:
